@@ -14,3 +14,7 @@ Python 3           Core language
 Kivy               Mobile UI framework
 Pandas             Data handling
 Matplotlib         Expense charts
+
+
+Prerequisites
+Make sure you have Python 3.8+ installed.
