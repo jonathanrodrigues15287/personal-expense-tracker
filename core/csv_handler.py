@@ -33,16 +33,25 @@ def initialize_csv_files():
         history_df.to_csv(HISTORY_FILE, index=False)
 
 def read_csv(file_path):
-    return pd.read_csv(file_path)
+    try:
+        return pd.read_csv(file_path)
+    except pd.errors.EmptyDataError:
+        return pd.DataFrame()
 
 def append_expense(expense_data):
-    df = pd.read_csv(EXPENSES_FILE)
+    try:
+        df = pd.read_csv(EXPENSES_FILE)
+    except pd.errors.EmptyDataError:
+        df = pd.DataFrame(columns=["Expense_ID", "Date", "Category", "Amount", "Description"])
     new_row = pd.DataFrame([expense_data])
     df = pd.concat([df, new_row], ignore_index=True)
     df.to_csv(EXPENSES_FILE, index=False)
 
 def save_budget(month, budget):
-    df = pd.read_csv(BUDGET_FILE)
+    try:
+        df = pd.read_csv(BUDGET_FILE)
+    except pd.errors.EmptyDataError:
+        df = pd.DataFrame(columns=["Month", "Budget"])
     new_row = pd.DataFrame([{
         "Month": month,
         "Budget": budget
@@ -51,7 +60,10 @@ def save_budget(month, budget):
     df.to_csv(BUDGET_FILE, index=False)
 
 def save_monthly_history(history_data):
-    df = pd.read_csv(HISTORY_FILE)
+    try:
+        df = pd.read_csv(HISTORY_FILE)
+    except pd.errors.EmptyDataError:
+        df = pd.DataFrame(columns=["Month", "Total_Spent", "Budget", "Savings"])
     new_row = pd.DataFrame([history_data])
     df = pd.concat([df, new_row], ignore_index=True)
     df.to_csv(HISTORY_FILE, index=False)
