@@ -6,23 +6,27 @@ EXPENSES_FILE = "data/expenses.csv"
 def total_spending():
     df = read_csv(EXPENSES_FILE)
     if df.empty or "Amount" not in df.columns: return 0.0
+    df["Amount"] = pd.to_numeric(df["Amount"], errors="coerce")
     return df["Amount"].sum()
 
 def average_daily_spending():
     df = read_csv(EXPENSES_FILE)
-    if df.empty: return 0.0
+    if df.empty or "Amount" not in df.columns: return 0.0
+    df["Amount"] = pd.to_numeric(df["Amount"], errors="coerce")
     daily_totals = df.groupby("Date")["Amount"].sum()
     return daily_totals.mean()
 
 def highest_expense():
     df = read_csv(EXPENSES_FILE)
-    if df.empty: return None
+    if df.empty or "Amount" not in df.columns: return None
+    df["Amount"] = pd.to_numeric(df["Amount"], errors="coerce")
     highest = df.loc[df["Amount"].idxmax()]
     return highest
 
 def lowest_expense():
     df = read_csv(EXPENSES_FILE)
-    if df.empty: return None
+    if df.empty or "Amount" not in df.columns: return None
+    df["Amount"] = pd.to_numeric(df["Amount"], errors="coerce")
     lowest = df.loc[df["Amount"].idxmin()]
     return lowest
 
