@@ -1,7 +1,9 @@
 from kivy.app import App
 from kivy.core.window import Window
 from kivy.uix.screenmanager import ScreenManager
+
 from ui.dashboard import Homescreen
+from ui.screens import AnalyticsScreen, ManageScreen
 from core.csv_handler import initialize_csv_files
 
 Window.size = (360, 640)
@@ -14,6 +16,8 @@ class ExpenseTrackerApp(App):
         
         sm = ScreenManager()
         sm.add_widget(Homescreen(name="home"))
+        sm.add_widget(AnalyticsScreen(name="analytics"))
+        sm.add_widget(ManageScreen(name="manage"))
         return sm
 
 if __name__ == "__main__":
