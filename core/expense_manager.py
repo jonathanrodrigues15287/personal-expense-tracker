@@ -26,15 +26,24 @@ def view_all_expenses():
 
 def calculate_total_expenses():
     df = read_csv(EXPENSES_FILE)
+    if df.empty or "Amount" not in df.columns:
+        return 0.0
+    df["Amount"] = pd.to_numeric(df["Amount"], errors="coerce")
     return df["Amount"].sum()
 
 def category_expenses():
     df = read_csv(EXPENSES_FILE)
+    if df.empty or "Amount" not in df.columns:
+        return pd.Series(dtype=float)
+    df["Amount"] = pd.to_numeric(df["Amount"], errors="coerce")
     category_totals = df.groupby("Category")["Amount"].sum()
     return category_totals
 
 def daily_expenses():
     df = read_csv(EXPENSES_FILE)
+    if df.empty or "Amount" not in df.columns:
+        return pd.Series(dtype=float)
+    df["Amount"] = pd.to_numeric(df["Amount"], errors="coerce")
     daily_totals = df.groupby("Date")["Amount"].sum()
     return daily_totals
 
