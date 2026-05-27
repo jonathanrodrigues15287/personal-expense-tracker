@@ -1,24 +1,27 @@
 from kivy.app import App
 from kivy.core.window import Window
-from kivy.uix.screenmanager import ScreenManager
+from kivy.uix.screenmanager import ScreenManager, SlideTransition
 
 from ui.dashboard import Homescreen
 from ui.screens import AnalyticsScreen, ManageScreen
 from core.csv_handler import initialize_csv_files
 
-Window.size = (360, 640)
-Window.clearcolor = (0.05, 0.1, 0.2, 1)  # Dark blue background
+Window.size = (380, 680)
+Window.clearcolor = (0.043, 0.067, 0.126, 1)  # matches BG_PRIMARY #0B1120
+
 
 class ExpenseTrackerApp(App):
     def build(self):
+        self.title = "Expense Tracker"
         # Ensure CSV files exist before the app tries to read them
         initialize_csv_files()
-        
-        sm = ScreenManager()
+
+        sm = ScreenManager(transition=SlideTransition(duration=0.25))
         sm.add_widget(Homescreen(name="home"))
         sm.add_widget(AnalyticsScreen(name="analytics"))
         sm.add_widget(ManageScreen(name="manage"))
         return sm
+
 
 if __name__ == "__main__":
     ExpenseTrackerApp().run()
