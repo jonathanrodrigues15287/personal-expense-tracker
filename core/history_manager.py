@@ -18,11 +18,8 @@ def archive_current_month():
 
     expenses_df["Date"] = pd.to_datetime(expenses_df["Date"])
 
-    current_month = (
-        expenses_df["Date"]
-        .dt.strftime("%Y-%m")
-        .iloc[-1]
-    )
+    from datetime import datetime
+    current_month = datetime.now().strftime("%Y-%m")
 
     monthly_expenses = expenses_df[
         expenses_df["Date"]
