@@ -1,20 +1,104 @@
-Expense Tracker
-A mobile-first personal expense tracker built with Python and Kivy. 
-Track your daily spending, categorize expenses, and stay on top of your finances — all from a clean, scrollable mobile UI.
+# Personal Expense Tracker
 
-Features
-Add and view daily expenses
-Scrollable home screen with expense list
-Simple bottom navigation bar
-Lightweight and runs on Android & desktop
+A mobile-first expense tracking app built with **Python + Kivy**, featuring real-time analytics, chart visualisations, and CSV-backed persistent storage.
 
-Tech Stack
-Tool               Purpose
-Python 3           Core language
-Kivy               Mobile UI framework
-Pandas             Data handling
-Matplotlib         Expense charts
+---
 
+## Features
 
-Prerequisites
-Make sure you have Python 3.8+ installed.
+- **Dashboard** — live balance, total spend, and expense count at a glance
+- **Add & manage expenses** — date, category, amount, and description with input validation
+- **Monthly budgeting** — set a budget per month and track remaining balance
+- **Archive periods** — snapshot any custom date range to monthly history
+- **Analytics screen** — four charts generated with Matplotlib:
+  - Spending by Category (line)
+  - Category-wise Trend (line)
+  - Monthly Spending Trend (line)
+  - Daily Expense Trend (line)
+- **Dark glass-card UI** — custom Kivy design system with rounded cards, accent colours, and a bottom navigation bar
+- **CSV storage** — no database required; data lives in `data/` as plain CSV files
+
+---
+
+## Project Structure
+
+```text
+expense_tracker/
+├── core/
+│   ├── csv_handler.py          # Read/write CSV files
+│   ├── budget_manager.py       # Balance calculations
+│   ├── expense_manager.py      # CRUD operations for expenses
+│   ├── history_manager.py      # Period archiving & history queries
+│   └── analytics.py            # Aggregations and statistics
+│
+├── graphs/
+│   ├── category_graph.py       # Category line charts
+│   ├── spending_graph.py       # Monthly spending chart
+│   └── daily_expense_graph.py  # Daily trend chart
+│
+├── ui/
+│   ├── theme.py                # Design tokens & widget factories
+│   ├── widgets.py              # Layout primitives (nav, header, scroll)
+│   ├── dashboard.py            # Home screen
+│   └── screens.py              # Analytics & Manage screens
+│
+├── data/                       # Auto-created on first run
+│   ├── expenses.csv
+│   ├── budgets.csv
+│   └── monthly_history.csv
+│
+└── main.py                     # App entry point
+```
+
+---
+
+## Prerequisites
+
+- Python 3.8 or higher
+- pip
+
+---
+
+## Installation
+
+```bash
+# 1. Clone the repository
+git clone https://github.com/jonathanrodrigues15287/personal-expense-tracker.git
+
+# 2. Move into the project directory
+cd personal-expense-tracker
+
+# 3. Install dependencies
+pip install -r requirements.txt
+
+# 4. Run the app
+python main.py
+```
+
+The `data/` directory and CSV files are created automatically on first launch.
+
+---
+
+## Tech Stack
+
+- Python
+- Kivy
+- Pandas
+- Matplotlib
+- CSV Storage
+
+---
+
+## Future Improvements
+
+- Export reports as PDF/Excel
+- Authentication & multi-user profiles
+- Cloud sync support
+- AI-powered spending insights
+- Recurring expense reminders
+
+---
+
+## License
+
+This project is open-source and available under the MIT License.
