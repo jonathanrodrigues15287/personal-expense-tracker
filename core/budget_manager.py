@@ -1,24 +1,24 @@
-from kivy.app import App
-from kivy.core.window import Window
-from kivy.uix.screenmanager import ScreenManager
+from core.csv_handler import read_csv
 
-from ui.dashboard import Homescreen
-from ui.screens import AnalyticsScreen, ManageScreen
-from core.csv_handler import initialize_csv_files
+BUDGET_FILE = "data/budgets.csv"
+EXPENSES_FILE = "data/expenses.csv"
 
-Window.size = (360, 640)
-Window.clearcolor = (0.05, 0.1, 0.2, 1)  # Dark blue background
 
-class ExpenseTrackerApp(App):
-    def build(self):
-        # Ensure CSV files exist before the app tries to read them
-        initialize_csv_files()
-        
-        sm = ScreenManager()
-        sm.add_widget(Homescreen(name="home"))
-        sm.add_widget(AnalyticsScreen(name="analytics"))
-        sm.add_widget(ManageScreen(name="manage"))
-        return sm
+def calculate_balance():
 
-if __name__ == "__main__":
-    ExpenseTrackerApp().run()
+    budget_df = read_csv(BUDGET_FILE)
+    expenses_df = read_csv(EXPENSES_FILE)
+
+    if budget_df.empty:
+        latest_budget = 0.0
+    else:
+        latest_budget = budget_df.iloc[-1]["Budget"]
+
+    if expenses_df.empty or "Amount" not in expenses_df.columns:
+        total_expenses = 0.0
+    else:
+        total_expenses = expenses_df["Amount"].sum()
+
+    balance = latest_budget - total_expenses
+
+    return balance
