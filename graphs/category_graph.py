@@ -1,5 +1,5 @@
 import matplotlib
-matplotlib.use('Agg')  # Non-interactive backend, no pop-ups
+matplotlib.use('Agg')  
 import matplotlib.pyplot as plt
 from core.analytics import category_analysis
 
@@ -7,7 +7,6 @@ plt.style.use('dark_background')
 BG_COLOR = '#0c1933'
 
 def plot_category_pie_chart():
-    """Line plot of spending per category (sorted ascending)."""
     category_data = category_analysis()
     if category_data.empty:
         return None
