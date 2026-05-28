@@ -1,5 +1,5 @@
 import matplotlib
-matplotlib.use('Agg')  
+matplotlib.use('Agg')  # Non-interactive backend, no pop-ups
 import matplotlib.pyplot as plt
 from core.analytics import category_analysis
 
