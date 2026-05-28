@@ -4,6 +4,7 @@ from kivy.uix.scrollview import ScrollView
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.widget import Widget
+from kivy.uix.image import Image
 from kivy.graphics import Color, RoundedRectangle, Rectangle
 from kivy.metrics import dp
 
@@ -55,11 +56,10 @@ class _NavButton(BoxLayout):
         super().__init__(orientation='vertical', **kwargs)
         self.size_hint = (1, 1)
         col = NAV_ACTIVE if active else NAV_INACTIVE
-        self._icon = Label(
-            text=icon, font_size='22sp', color=col,
-            size_hint_y=0.55, halign='center', valign='bottom',
+        self._icon = Image(
+            source=icon, color=col,
+            size_hint_y=0.55,
         )
-        self._icon.bind(size=self._icon.setter('text_size'))
         self._label = Label(
             text=label, font_size='10sp', color=col,
             size_hint_y=0.45, halign='center', valign='top',
@@ -91,13 +91,14 @@ def _make_nav_bar(screen):
     )
 
     items = [
-        ("\u2302", "Home",      "home"),       
-        ("\u2261", "Analytics", "analytics"),  
-        ("\u270E", "Manage",    "manage"),      
+        ("icons/home.png", "Home",      "home"),       
+        ("icons/analytics.png", "Analytics", "analytics"),  
+        ("icons/manage.png", "Manage",    "manage"),      
     ]
     nav_btns = []
     for icon, label, target in items:
-        nb = _NavButton(icon, label)
+        is_active = getattr(screen, 'name', None) == target
+        nb = _NavButton(icon, label, active=is_active)
         nav_btns.append((nb, target))
 
         def _on_touch(instance, touch, tgt=target, btns=nav_btns):
@@ -111,6 +112,14 @@ def _make_nav_bar(screen):
         nb.bind(on_touch_down=_on_touch)
         nav.add_widget(nb)
 
+    def _update_active(*args):
+        for b, t in nav_btns:
+            b.set_active(getattr(screen, 'name', None) == t)
+    
+    screen.bind(on_pre_enter=_update_active)
+    # Call it once initially just in case name is already set
+    _update_active()
+
     return nav
 
 def make_scrollable_content(title, buttons, screen, show_header=True):
@@ -123,6 +132,8 @@ def make_scrollable_content(title, buttons, screen, show_header=True):
         size_hint=(1, 1),
         do_scroll_x=False,
         do_scroll_y=True,
+        scroll_timeout=250,      # Give the user more time to click before scrolling
+        scroll_distance=dp(20),  # Require more movement before it's considered a scroll
         bar_width=dp(3),
         bar_color=(*ACCENT_CYAN[:3], 0.4),
         bar_inactive_color=(*ACCENT_CYAN[:3], 0.1),
