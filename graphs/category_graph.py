@@ -6,7 +6,7 @@ from core.analytics import category_analysis
 plt.style.use('dark_background')
 BG_COLOR = '#0c1933'
 
-def plot_category_pie_chart():
+def plot_category_line_chart():
     category_data = category_analysis()
     if category_data.empty:
         return None
