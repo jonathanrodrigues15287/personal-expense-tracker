@@ -19,14 +19,11 @@ from core.analytics import total_spending, highest_expense, total_number_of_expe
 from core.expense_manager import add_expense
 from core.csv_handler import save_budget
 from core.history_manager import archive_period
-from graphs.category_graph import plot_category_pie_chart, plot_category_bar_graph
+from graphs.category_graph import plot_category_line_chart, plot_category_bar_graph
 from graphs.spending_graph import plot_monthly_spending
 from graphs.daily_expense_graph import plot_daily_expenses
 
 
-# ══════════════════════════════════════════════════════════════════
-#  ANALYTICS SCREEN
-# ══════════════════════════════════════════════════════════════════
 class AnalyticsScreen(Screen):
 
     def on_enter(self, *args):
@@ -48,7 +45,7 @@ class AnalyticsScreen(Screen):
 
         # Refresh graphs
         for loader, image_widget in [
-            (plot_category_pie_chart, self.pie_image),
+            (plot_category_line_chart, self.pie_image),
             (plot_category_bar_graph, self.bar_image),
             (plot_monthly_spending, self.spend_image),
             (plot_daily_expenses, self.daily_image),
