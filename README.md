@@ -1,11 +1,16 @@
-# Personal Expense Tracker
 
+# Personal Expense Tracker
 A mobile-first expense tracking app built with **Python + Kivy**, featuring real-time analytics, chart visualisations, and CSV-backed persistent storage.
 
 ---
 
-## Features
+## Download
 
+Pre-built Windows executable available on the [Releases](https://github.com/jonathanrodrigues15287/personal-expense-tracker/releases) page — no Python installation required.
+
+---
+
+## Features
 - **Dashboard** — live balance, total spend, and expense count at a glance
 - **Add & manage expenses** — date, category, amount, and description with input validation
 - **Monthly budgeting** — set a budget per month and track remaining balance
@@ -21,7 +26,6 @@ A mobile-first expense tracking app built with **Python + Kivy**, featuring real
 ---
 
 ## Project Structure
-
 ```text
 expense_tracker/
 ├── core/
@@ -47,20 +51,19 @@ expense_tracker/
 │   ├── budgets.csv
 │   └── monthly_history.csv
 │
+├── ExpenseTracker.spec         # PyInstaller build configuration
 └── main.py                     # App entry point
 ```
 
 ---
 
 ## Prerequisites
-
 - Python 3.8 or higher
 - pip
 
 ---
 
 ## Installation
-
 ```bash
 # 1. Clone the repository
 git clone https://github.com/jonathanrodrigues15287/personal-expense-tracker.git
@@ -79,8 +82,20 @@ The `data/` directory and CSV files are created automatically on first launch.
 
 ---
 
-## Tech Stack
+## Building the Executable
 
+The repo includes `ExpenseTracker.spec` for reproducible PyInstaller builds:
+
+```bash
+pip install pyinstaller
+pyinstaller ExpenseTracker.spec
+```
+
+The compiled executable will be output to `dist/ExpenseTracker.exe`.
+
+---
+
+## Tech Stack
 - Python
 - Kivy
 - Pandas
@@ -90,15 +105,11 @@ The `data/` directory and CSV files are created automatically on first launch.
 ---
 
 ## Future Improvements
-
 - Export reports as PDF/Excel
-- Authentication & multi-user profiles
-- Cloud sync support
 - AI-powered spending insights
 - Recurring expense reminders
 
 ---
 
 ## License
-
 This project is open-source and available under the MIT License.
