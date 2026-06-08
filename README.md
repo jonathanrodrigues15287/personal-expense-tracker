@@ -14,11 +14,9 @@ Pre-built Windows executable available on the [Releases](https://github.com/jona
 |-----------|-----------|
 | ![Dashboard](screenshots/dashboard.png) | ![Analytics](screenshots/analytics.png) |
 
-| Add Expense | Manage Expenses |
-|-------------|-----------------|
-| ![Add Expense](screenshots/add_expense.png) | ![Manage](screenshots/manage.png) |
-
-> **To add your screenshots:** create a `screenshots/` folder in the repo root and place your images there with the filenames above, or update the paths to match whatever filenames you use.
+| Manage Expenses |
+|-----------------|
+| ![Manage](screenshots/manage.png) |
 
 ---
 
