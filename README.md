@@ -1,12 +1,24 @@
-
 # Personal Expense Tracker
 A mobile-first expense tracking app built with **Python + Kivy**, featuring real-time analytics, chart visualisations, and CSV-backed persistent storage.
 
 ---
 
 ## Download
-
 Pre-built Windows executable available on the [Releases](https://github.com/jonathanrodrigues15287/personal-expense-tracker/releases) page — no Python installation required.
+
+---
+
+## Screenshots
+
+| Dashboard | Analytics |
+|-----------|-----------|
+| ![Dashboard](screenshots/dashboard.png) | ![Analytics](screenshots/analytics.png) |
+
+| Add Expense | Manage Expenses |
+|-------------|-----------------|
+| ![Add Expense](screenshots/add_expense.png) | ![Manage](screenshots/manage.png) |
+
+> **To add your screenshots:** create a `screenshots/` folder in the repo root and place your images there with the filenames above, or update the paths to match whatever filenames you use.
 
 ---
 
@@ -67,13 +79,10 @@ expense_tracker/
 ```bash
 # 1. Clone the repository
 git clone https://github.com/jonathanrodrigues15287/personal-expense-tracker.git
-
 # 2. Move into the project directory
 cd personal-expense-tracker
-
 # 3. Install dependencies
 pip install -r requirements.txt
-
 # 4. Run the app
 python main.py
 ```
@@ -83,14 +92,11 @@ The `data/` directory and CSV files are created automatically on first launch.
 ---
 
 ## Building the Executable
-
 The repo includes `ExpenseTracker.spec` for reproducible PyInstaller builds:
-
 ```bash
 pip install pyinstaller
 pyinstaller ExpenseTracker.spec
 ```
-
 The compiled executable will be output to `dist/ExpenseTracker.exe`.
 
 ---
