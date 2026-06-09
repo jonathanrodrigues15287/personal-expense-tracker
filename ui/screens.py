@@ -65,15 +65,17 @@ class AnalyticsScreen(Screen):
             "Analytics", [], self, show_header=True,
         )
 
-        # ── Summary card ─────────────────────────────────────
+        # Summary card 
         summary = make_card()
         summary.add_widget(make_section_label("Overview"))
 
         row = BoxLayout(
             orientation='horizontal',
-            size_hint_y=None, height=dp(60),
+            size_hint_y=None,
             spacing=dp(8),
         )
+        row.height = max(dp(60), self.height * 0.08)
+        self.bind(height=lambda _, h: setattr(row, 'height', max(dp(60), h * 0.08)))
 
         # Spent
         col1 = BoxLayout(orientation='vertical', size_hint_x=1)
@@ -105,7 +107,7 @@ class AnalyticsScreen(Screen):
         summary.add_widget(row)
         inner.add_widget(summary)
 
-        # ── Graph cards ──────────────────────────────────────
+        # Graph cards
         graphs = [
             ("Spending by Category",  "pie_image"),
             ("Category-wise Trend",   "bar_image"),
@@ -115,18 +117,17 @@ class AnalyticsScreen(Screen):
         for title, attr in graphs:
             card = make_card(padding=(dp(8), dp(8)))
             card.add_widget(make_section_label(title))
-            img = Image(size_hint_y=None, height=dp(260))
+            img = Image(size_hint=(1, 1))
             setattr(self, attr, img)
             card.add_widget(img)
+            card.height = max(dp(240), self.height * 0.35)
+            self.bind(height=lambda _, h, card=card: setattr(card, 'height', max(dp(240), h * 0.35)))
             inner.add_widget(card)
 
         inner.add_widget(make_spacer(dp(8)))
         self.add_widget(layout)
 
 
-# ══════════════════════════════════════════════════════════════════
-#  MANAGE SCREEN
-# ══════════════════════════════════════════════════════════════════
 class ManageScreen(Screen):
 
     def on_enter(self, *args):
@@ -140,7 +141,7 @@ class ManageScreen(Screen):
             "Manage", [], self, show_header=True,
         )
 
-        # ── Add Expense card ─────────────────────────────────
+        # Add Expense card 
         exp_card = make_card()
         exp_card.add_widget(make_section_label("New Expense"))
 
@@ -165,7 +166,7 @@ class ManageScreen(Screen):
 
         inner.add_widget(exp_card)
 
-        # ── Budget card ──────────────────────────────────────
+        # Budget card
         bud_card = make_card()
         bud_card.add_widget(make_section_label("Monthly Budget"))
 
@@ -180,7 +181,7 @@ class ManageScreen(Screen):
 
         inner.add_widget(bud_card)
 
-        # ── Archive card ─────────────────────────────────────
+        # Archive card
         arc_card = make_card()
         arc_card.add_widget(make_section_label("Archive Period"))
 
@@ -202,21 +203,23 @@ class ManageScreen(Screen):
 
         inner.add_widget(arc_card)
 
-        # ── Status label ─────────────────────────────────────
+        # Status label      
         self.status_label = Label(
             text="",
-            size_hint_y=None, height=dp(36),
+            size_hint_y=None,
             font_size='13sp',
             color=ACCENT_GREEN,
             halign='center', valign='middle',
         )
+        self.status_label.height = max(dp(36), self.height * 0.05)
+        self.bind(height=lambda _, h: setattr(self.status_label, 'height', max(dp(36), h * 0.05)))
         self.status_label.bind(size=self.status_label.setter('text_size'))
         inner.add_widget(self.status_label)
 
         inner.add_widget(make_spacer(dp(8)))
         self.add_widget(layout)
 
-    # ── Handlers ─────────────────────────────────────────────
+    # Handlers 
     def _submit_expense(self, instance):
         date = self.date_input.text.strip()
         category = self.category_input.text.strip()
