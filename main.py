@@ -6,8 +6,11 @@ from ui.dashboard import Homescreen
 from ui.screens import AnalyticsScreen, ManageScreen
 from core.csv_handler import initialize_csv_files
 
-Window.size = (380, 680)
-Window.clearcolor = (0.043, 0.067, 0.126, 1)  # matches BG_PRIMARY #0B1120
+from kivy.utils import platform
+
+if platform not in ('android', 'ios'):
+    Window.size = (380, 680)
+Window.clearcolor = (0.043, 0.067, 0.126, 1)
 
 
 class ExpenseTrackerApp(App):
