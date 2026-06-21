@@ -1,6 +1,7 @@
 import sqlite3
 import pandas as pd
 import os
+import logging
 
 DB_FILE = "data/expense_tracker.db"
 EXPENSES_CSV = "data/expenses.csv"
@@ -61,27 +62,27 @@ def _migrate_csv_data():
             df = pd.read_csv(EXPENSES_CSV)
             if not df.empty:
                 df.to_sql('expenses', conn, if_exists='append', index=False)
-                print("Migrated expenses.csv to database.")
+                logging.info("Migrated expenses.csv to database.")
         except Exception as e:
-            print(f"Failed to migrate expenses.csv: {e}")
+            logging.error(f"Failed to migrate expenses.csv: {e}")
             
     if os.path.exists(BUDGET_CSV):
         try:
             df = pd.read_csv(BUDGET_CSV)
             if not df.empty:
                 df.to_sql('budgets', conn, if_exists='append', index=False)
-                print("Migrated budgets.csv to database.")
+                logging.info("Migrated budgets.csv to database.")
         except Exception as e:
-            print(f"Failed to migrate budgets.csv: {e}")
+            logging.error(f"Failed to migrate budgets.csv: {e}")
             
     if os.path.exists(HISTORY_CSV):
         try:
             df = pd.read_csv(HISTORY_CSV)
             if not df.empty:
                 df.to_sql('history', conn, if_exists='append', index=False)
-                print("Migrated monthly_history.csv to database.")
+                logging.info("Migrated monthly_history.csv to database.")
         except Exception as e:
-            print(f"Failed to migrate monthly_history.csv: {e}")
+            logging.error(f"Failed to migrate monthly_history.csv: {e}")
 
     conn.close()
 
@@ -93,7 +94,7 @@ def read_query(query, params=None):
             else:
                 return pd.read_sql_query(query, conn)
     except Exception as e:
-        print(f"Database read error: {e}")
+        logging.error(f"Database read error: {e}")
         return pd.DataFrame()
 
 def execute_query(query, params=None):
@@ -106,4 +107,4 @@ def execute_query(query, params=None):
                 cursor.execute(query)
             conn.commit()
     except Exception as e:
-        print(f"Database execute error: {e}")
+        logging.error(f"Database execute error: {e}")
