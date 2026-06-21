@@ -1,6 +1,7 @@
 import pandas as pd
 from core.db_handler import read_query, execute_query
 from datetime import datetime
+import logging
 
 def archive_period(start_date=None, end_date=None):
 
@@ -8,7 +9,7 @@ def archive_period(start_date=None, end_date=None):
     budget_df = read_query("SELECT * FROM budgets")
 
     if expenses_df.empty:
-        print("No expenses found")
+        logging.warning("No expenses found")
         return
 
     expenses_df["Date"] = pd.to_datetime(expenses_df["Date"], errors="coerce")
@@ -41,7 +42,7 @@ def archive_period(start_date=None, end_date=None):
     query = "INSERT OR REPLACE INTO history (Month, Total_Spent, Budget, Savings) VALUES (?, ?, ?, ?)"
     execute_query(query, (period_label, float(total_spent), float(latest_budget), float(savings)))
 
-    print(f"History saved for period: {period_label}")
+    logging.info(f"History saved for period: {period_label}")
     
 def load_history():
     return read_query("SELECT * FROM history")
