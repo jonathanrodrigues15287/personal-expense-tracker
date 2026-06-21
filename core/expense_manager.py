@@ -1,5 +1,6 @@
 import pandas as pd
 from core.db_handler import read_query, execute_query
+import logging
 
 def add_expense(expense_id,
                 date,
@@ -12,7 +13,7 @@ def add_expense(expense_id,
         VALUES (?, ?, ?, ?, ?)
     '''
     execute_query(query, (expense_id, date, category, amount, description))
-    print("Expense Added Successfully")
+    logging.info("Expense Added Successfully")
 
 def view_all_expenses():
     return read_query("SELECT * FROM expenses")
@@ -40,7 +41,7 @@ def daily_expenses():
 def delete_expense(expense_id):
     query = "DELETE FROM expenses WHERE Expense_ID = ?"
     execute_query(query, (expense_id,))
-    print("Expense Deleted Successfully")
+    logging.info("Expense Deleted Successfully")
 
 def edit_expense(expense_id,
                  new_date=None,
@@ -74,7 +75,7 @@ def edit_expense(expense_id,
     params.append(expense_id)
     
     execute_query(query, tuple(params))
-    print("Expense Updated Successfully")
+    logging.info("Expense Updated Successfully")
 
 def filter_by_category(category):
     return read_query("SELECT * FROM expenses WHERE Category = ?", (category,))
