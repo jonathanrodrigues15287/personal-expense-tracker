@@ -1,5 +1,5 @@
 # Personal Expense Tracker
-A mobile-first expense tracking app built with **Python + Kivy**, featuring real-time analytics, chart visualisations, and CSV-backed persistent storage.
+A mobile-first expense tracking app built with **Python + Kivy**, featuring real-time analytics, chart visualisations, and SQLite-backed persistent storage.
 
 ---
 
@@ -31,7 +31,7 @@ Pre-built Windows executable available on the [Releases](https://github.com/jona
   - Monthly Spending Trend (line)
   - Daily Expense Trend (line)
 - **Dark glass-card UI** — custom Kivy design system with rounded cards, accent colours, and a bottom navigation bar
-- **CSV storage** — no database required; data lives in `data/` as plain CSV files
+- **SQLite storage** — data is securely stored in `data/expense_tracker.db`
 
 ---
 
@@ -89,7 +89,7 @@ pip install -r requirements.txt
 python main.py
 ```
 
-The `data/` directory and CSV files are created automatically on first launch.
+The `data/` directory and SQLite database are created automatically on first launch.
 
 ---
 
@@ -108,7 +108,7 @@ The compiled executable will be output to `dist/ExpenseTracker.exe`.
 - Kivy
 - Pandas
 - Matplotlib
-- CSV Storage
+- SQLite Database
 
 ---
 
