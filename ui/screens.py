@@ -17,7 +17,7 @@ from ui.theme import (
 )
 from core.analytics import total_spending, highest_expense, total_number_of_expenses
 from core.expense_manager import add_expense
-from core.csv_handler import save_budget
+from core.budget_manager import save_budget
 from core.history_manager import archive_period
 from graphs.category_graph import plot_category_line_chart, plot_category_bar_graph
 from graphs.spending_graph import plot_monthly_spending
