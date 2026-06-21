@@ -36,33 +36,37 @@ Pre-built Windows executable available on the [Releases](https://github.com/jona
 ---
 
 ## Project Structure
+
 ```text
 expense_tracker/
-├── core/
-│   ├── csv_handler.py          # Read/write CSV files
-│   ├── budget_manager.py       # Balance calculations
-│   ├── expense_manager.py      # CRUD operations for expenses
-│   ├── history_manager.py      # Period archiving & history queries
-│   └── analytics.py            # Aggregations and statistics
 │
-├── graphs/
-│   ├── category_graph.py       # Category line charts
-│   ├── spending_graph.py       # Monthly spending chart
-│   └── daily_expense_graph.py  # Daily trend chart
+├── core/                     # Business logic and database operations
+│   ├── analytics.py
+│   ├── budget_manager.py
+│   ├── db_handler.py
+│   ├── expense_manager.py
+│   └── history_manager.py
 │
-├── ui/
-│   ├── theme.py                # Design tokens & widget factories
-│   ├── widgets.py              # Layout primitives (nav, header, scroll)
-│   ├── dashboard.py            # Home screen
-│   └── screens.py              # Analytics & Manage screens
+├── data/                     # Generated graphs and database
+│   └── expense_tracker.db
 │
-├── data/                       # Auto-created on first run
-│   ├── expenses.csv
-│   ├── budgets.csv
-│   └── monthly_history.csv
+├── graphs/                   # Graph generation modules
+│   ├── category_graph.py
+│   ├── daily_expense_graph.py
+│   └── spending_graph.py
 │
-├── ExpenseTracker.spec         # PyInstaller build configuration
-└── main.py                     # App entry point
+├── icons/                    # Application icons
+│   ├── analytics.png
+│   ├── home.png
+│   └── manage.png
+│
+├── ui/                       # User interface components
+│   ├── dashboard.py
+│   ├── screens.py
+│   ├── theme.py
+│   └── widgets.py
+│
+├── main.py                   # Application entry point
 ```
 
 ---
