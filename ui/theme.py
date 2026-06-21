@@ -34,13 +34,13 @@ RADIUS_SM        = dp(10)
 def _bind_rounded_bg(widget, color, radius=RADIUS):
     """Draw a rounded rectangle behind *widget* that auto-resizes."""
     with widget.canvas.before:
-        Color(*color)
+        col_inst = Color(*color)
         rr = RoundedRectangle(pos=widget.pos, size=widget.size, radius=[radius])
     widget.bind(
         pos=lambda w, v: setattr(rr, 'pos', v),
         size=lambda w, v: setattr(rr, 'size', v),
     )
-    return rr
+    return col_inst, rr
 
 
 def _bind_border(widget, color=BORDER_SUBTLE, radius=RADIUS, width=1):
@@ -143,21 +143,18 @@ def make_accent_button(text, bg_color=ACCENT_CYAN, text_color=(0, 0, 0, 1)):
         bold=True,
         font_size='15sp',
     )
-    rr = _bind_rounded_bg(btn, bg_color, RADIUS_SM)
+    col, rr = _bind_rounded_bg(btn, bg_color, RADIUS_SM)
 
     # Darken on press
     orig = list(bg_color[:3])
+    alpha = bg_color[3] if len(bg_color) > 3 else 1
     dark = [max(0, c - 0.12) for c in orig]
 
     def _press(inst):
-        rr.source = ''  # force redraw
-        with btn.canvas.before:
-            Color(*dark, bg_color[3] if len(bg_color) > 3 else 1)
-            RoundedRectangle(pos=btn.pos, size=btn.size, radius=[RADIUS_SM])
+        col.rgba = (*dark, alpha)
 
     def _release(inst):
-        btn.canvas.before.clear()
-        _bind_rounded_bg(btn, bg_color, RADIUS_SM)
+        col.rgba = (*orig, alpha)
 
     btn.bind(on_press=_press, on_release=_release)
     return btn
